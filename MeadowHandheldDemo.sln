@@ -1,0 +1,23 @@
+
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MeadowHandheldDemo", "MeadowHandheldDemo\MeadowHandheldDemo.csproj", "{EF179C99-F32B-46F2-9172-0CB3D9A4EB04}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleTestApp", "ConsoleTestApp\ConsoleTestApp.csproj", "{7281EF98-F744-44A3-B4DC-E637E14B76BE}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{EF179C99-F32B-46F2-9172-0CB3D9A4EB04}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EF179C99-F32B-46F2-9172-0CB3D9A4EB04}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EF179C99-F32B-46F2-9172-0CB3D9A4EB04}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EF179C99-F32B-46F2-9172-0CB3D9A4EB04}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7281EF98-F744-44A3-B4DC-E637E14B76BE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7281EF98-F744-44A3-B4DC-E637E14B76BE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7281EF98-F744-44A3-B4DC-E637E14B76BE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7281EF98-F744-44A3-B4DC-E637E14B76BE}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
