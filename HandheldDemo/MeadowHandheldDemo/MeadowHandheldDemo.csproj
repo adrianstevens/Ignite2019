@@ -10,7 +10,11 @@
     <PackageReference Include="Meadow.Foundation.Displays.GraphicsLibrary" Version="0.8.2" />
   </ItemGroup>
   <ItemGroup>
-    <None Remove="trees.bmp" />
+    <None Remove="Lizard6.bmp" />
+    <None Remove="Paper6.bmp" />
+    <None Remove="Rock6.bmp" />
+    <None Remove="Scissors6.bmp" />
+    <None Remove="Spock6.bmp" />
   </ItemGroup>
   <ItemGroup>
     <None Update="trees.bmp">
@@ -18,8 +22,10 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="trees.bmp">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </EmbeddedResource>
+    <EmbeddedResource Include="Lizard6.bmp" />
+    <EmbeddedResource Include="Paper6.bmp" />
+    <EmbeddedResource Include="Rock6.bmp" />
+    <EmbeddedResource Include="Scissors6.bmp" />
+    <EmbeddedResource Include="Spock6.bmp" />
   </ItemGroup>
 </Project>

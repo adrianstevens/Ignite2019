@@ -27,37 +27,39 @@ namespace BasicMeadowHandheldDemo
         GraphicsLibrary display;
         ILI9341 controller;
 
+        byte[] data;
+
         public App()
         {
-            var data = LoadBitmapAsResource();
+            data = LoadBitmapAsResource();
             Console.WriteLine($"Data len {data.Length}");
 
             InitializeHardware();
 
-         /*   var state = true;
-            redLed.State = state;
-            blueLed.State = state;
-            greenLed.State = state;
-            yellowLed.State = state;
-            whiteLed.State = state; */
+            /*   var state = true;
+               redLed.State = state;
+               blueLed.State = state;
+               greenLed.State = state;
+               yellowLed.State = state;
+               whiteLed.State = state; */
 
 
             display.Clear();
             DrawBitmap(0, 0, data);
             //   Thread.Sleep(10000);
 
-            //   BlinkLeds();
+            BlinkLeds();
             Thread.Sleep(-1);
         }
 
         void InitializeHardware()
         {
-         /*   Console.WriteLine("Initialize hardware");
-            redLed = Device.CreateDigitalOutputPort(Device.Pins.D14);
-            blueLed = Device.CreateDigitalOutputPort(Device.Pins.D13);
-            greenLed = Device.CreateDigitalOutputPort(Device.Pins.D12);
-            yellowLed = Device.CreateDigitalOutputPort(Device.Pins.D11);
-            whiteLed = Device.CreateDigitalOutputPort(Device.Pins.D15); */
+            /*   Console.WriteLine("Initialize hardware");
+               redLed = Device.CreateDigitalOutputPort(Device.Pins.D14);
+               blueLed = Device.CreateDigitalOutputPort(Device.Pins.D13);
+               greenLed = Device.CreateDigitalOutputPort(Device.Pins.D12);
+               yellowLed = Device.CreateDigitalOutputPort(Device.Pins.D11);
+               whiteLed = Device.CreateDigitalOutputPort(Device.Pins.D15); */
 
             var spiBus = Device.CreateSpiBus(3000);
             Console.WriteLine($"Speed: {spiBus.Configuration.SpeedKHz}kHz");
@@ -74,20 +76,20 @@ namespace BasicMeadowHandheldDemo
             display.CurrentFont = new Font8x12();
 
             //buttons
-        /*    blackButton = Device.CreateDigitalInputPort(Device.Pins.D09, InterruptMode.EdgeBoth, ResistorMode.Disabled, 400);
-            blackButton.Changed += BlackButton_Changed;
+            /*    blackButton = Device.CreateDigitalInputPort(Device.Pins.D09, InterruptMode.EdgeBoth, ResistorMode.Disabled, 400);
+                blackButton.Changed += BlackButton_Changed;
 
-            blueButton = Device.CreateDigitalInputPort(Device.Pins.D05, InterruptMode.EdgeBoth, ResistorMode.Disabled, 400);
-            blueButton.Changed += BlueButton_Changed;
+                blueButton = Device.CreateDigitalInputPort(Device.Pins.D05, InterruptMode.EdgeBoth, ResistorMode.Disabled, 400);
+                blueButton.Changed += BlueButton_Changed;
 
-            redButton = Device.CreateDigitalInputPort(Device.Pins.D04, InterruptMode.EdgeBoth, ResistorMode.Disabled, 400);
-            redButton.Changed += RedButton_Changed;
+                redButton = Device.CreateDigitalInputPort(Device.Pins.D04, InterruptMode.EdgeBoth, ResistorMode.Disabled, 400);
+                redButton.Changed += RedButton_Changed;
 
-            greenButton = Device.CreateDigitalInputPort(Device.Pins.D06, InterruptMode.EdgeBoth, ResistorMode.Disabled, 400);
-         //   greenButton.Changed += GreenButton_Changed;
+                greenButton = Device.CreateDigitalInputPort(Device.Pins.D06, InterruptMode.EdgeBoth, ResistorMode.Disabled, 400);
+             //   greenButton.Changed += GreenButton_Changed;
 
-            yellowButton = Device.CreateDigitalInputPort(Device.Pins.D03, InterruptMode.EdgeBoth, ResistorMode.Disabled, 400);
-            yellowButton.Changed += YellowButton_Changed; */
+                yellowButton = Device.CreateDigitalInputPort(Device.Pins.D03, InterruptMode.EdgeBoth, ResistorMode.Disabled, 400);
+                yellowButton.Changed += YellowButton_Changed; */
         }
 
         private void YellowButton_Changed(object sender, DigitalInputPortEventArgs e)
@@ -119,22 +121,22 @@ namespace BasicMeadowHandheldDemo
 
         void UpdateDisplay()
         {
-              display.Clear();
-              display.DrawText(1, 0, $"Red {redLed.State}", Meadow.Foundation.Color.Red);
-              display.DrawText(1, 12, $"Blue {blueLed.State}", Meadow.Foundation.Color.Blue);
-              display.DrawText(1, 24, $"Green {greenLed.State}", Meadow.Foundation.Color.Green);
-              display.DrawText(1, 36, $"Yellow {yellowLed.State}", Meadow.Foundation.Color.Yellow);
-              display.DrawText(1, 48, $"White {whiteLed.State}", Meadow.Foundation.Color.White);
-              display.Show(); 
+            display.Clear();
+            display.DrawText(1, 0, $"Red {redLed.State}", Meadow.Foundation.Color.Red);
+            display.DrawText(1, 12, $"Blue {blueLed.State}", Meadow.Foundation.Color.Blue);
+            display.DrawText(1, 24, $"Green {greenLed.State}", Meadow.Foundation.Color.Green);
+            display.DrawText(1, 36, $"Yellow {yellowLed.State}", Meadow.Foundation.Color.Yellow);
+            display.DrawText(1, 48, $"White {whiteLed.State}", Meadow.Foundation.Color.White);
+            display.Show();
 
-          //  controller.ClearScreen(0x7FF);
+            //  controller.ClearScreen(0x7FF);
             controller.Show();
         }
 
         byte[] LoadBitmapAsResource()
         {
             var assembly = Assembly.GetExecutingAssembly();
-            var resourceName = "MeadowHandheldDemo.trees.bmp";
+            var resourceName = "MeadowHandheldDemo.Spock6.bmp";
 
             using (Stream stream = assembly.GetManifestResourceStream(resourceName))
             {
@@ -148,7 +150,7 @@ namespace BasicMeadowHandheldDemo
             }
         }
 
-        void DrawBitmap (int x, int y, byte[] data)
+        void DrawBitmap(int x, int y, byte[] data)
         {
             byte r, g, b;
 
@@ -181,18 +183,18 @@ namespace BasicMeadowHandheldDemo
 
             Console.WriteLine("Show complete");
         }
-          
+
 
         void LoadBitmapFromFolder()
         {
-            var filename = "trees.bmp";
+            var filename = "Spock6.bmp";
             var folder = "meadow";// Directory.GetCurrentDirectory();
             var path = Path.Combine(folder, filename);
 
             Console.WriteLine("filename - " + path);
 
             var bytes = File.ReadAllBytes(path);
-            
+
 
             Console.WriteLine($"Loaded file with length {bytes.Length}");
         }
@@ -208,13 +210,13 @@ namespace BasicMeadowHandheldDemo
                 Console.WriteLine($"GC total mem: {GC.GetTotalMemory(false)}");
                 Console.WriteLine($"{DateTime.Today.TimeOfDay}");
 
-                redLed.State = state;
-                blueLed.State = state;
-                greenLed.State = state;
-                yellowLed.State = state;
-                whiteLed.State = state;
+                /*    redLed.State = state;
+                    blueLed.State = state;
+                    greenLed.State = state;
+                    yellowLed.State = state;
+                    whiteLed.State = state; */
 
-                UpdateDisplay();
+                DrawBitmap(0, 0, data);
 
                 Thread.Sleep(50);
 

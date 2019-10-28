@@ -1,0 +1,32 @@
+<Project Sdk="Meadow.Sdk/1.1">
+  <PropertyGroup>
+    <TargetFramework>net472</TargetFramework>
+    <OutputType>Exe</OutputType>
+    <AssemblyName>App</AssemblyName>
+  </PropertyGroup>
+  <ItemGroup>
+    <Folder Include="Images\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Remove="Images\Lizard6.bmp" />
+    <None Remove="Images\Spock6.bmp" />
+    <None Remove="Images\Scissors6.bmp" />
+    <None Remove="Images\Rock6.bmp" />
+    <None Remove="Images\Paper6.bmp" />
+    <None Remove="Images\trees.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Images\Lizard6.bmp" />
+    <EmbeddedResource Include="Images\Spock6.bmp" />
+    <EmbeddedResource Include="Images\Scissors6.bmp" />
+    <EmbeddedResource Include="Images\Rock6.bmp" />
+    <EmbeddedResource Include="Images\Paper6.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="WildernessLabs.Meadow.Assemblies" Version="0.1.1" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\Displays.TFTSPI\Displays.TFTSPI.csproj" />
+    <ProjectReference Include="..\..\Displays.GraphicsLibrary\Displays.GraphicsLibrary.csproj" />
+  </ItemGroup>
+</Project>
