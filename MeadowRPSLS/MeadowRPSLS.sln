@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Displays.TFTSPI", "..\Displ
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "External", "External", "{25992D63-0DD6-4845-986D-6594AAB4649B}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Drivers", "Drivers", "{ACB99964-0CA3-4ABE-B4D9-A6B525218291}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -35,5 +37,8 @@ Global
 		{03DA0CDF-1EB5-4ACB-81C3-F4EF8B81D245}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
+		{1B9BC682-D9BB-4287-9AD8-0FB3EC142E2E} = {25992D63-0DD6-4845-986D-6594AAB4649B}
+		{4D373ED5-553F-4370-A10F-19745C63460D} = {ACB99964-0CA3-4ABE-B4D9-A6B525218291}
+		{03DA0CDF-1EB5-4ACB-81C3-F4EF8B81D245} = {ACB99964-0CA3-4ABE-B4D9-A6B525218291}
 	EndGlobalSection
 EndGlobal

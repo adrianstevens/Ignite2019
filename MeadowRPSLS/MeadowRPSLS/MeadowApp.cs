@@ -14,14 +14,14 @@ namespace MeadowRPSLS
         DisplayTftSpiBase controller;
 
         RPSLSView view;
-        RPSLS game;
+        RPSLSGame game;
 
         public MeadowApp()
         {
             InitializeHardware();
 
             Console.WriteLine("Create game object");
-            game = new RPSLS();
+            game = new RPSLSGame();
             view = new RPSLSView(controller);
 
             Console.WriteLine("Play game");

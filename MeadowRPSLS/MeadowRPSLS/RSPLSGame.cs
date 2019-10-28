@@ -2,7 +2,7 @@
 
 namespace MeadowRPSLS
 {
-    public class RPSLS
+    public class RPSLSGame
     {
         public enum Hand
         {
@@ -27,7 +27,7 @@ namespace MeadowRPSLS
 
         Random rand;
 
-        public RPSLS()
+        public RPSLSGame()
         {
             rand = new Random();
 

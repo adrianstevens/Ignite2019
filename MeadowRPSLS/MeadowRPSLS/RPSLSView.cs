@@ -9,7 +9,7 @@ namespace MeadowRPSLS
     public class RPSLSView
     {
         DisplayTftSpiBase controller;
-        GraphicsLibrary display; 
+        GraphicsLibrary display;
 
         //bitmap image data
         byte[] imgRock;
@@ -32,12 +32,8 @@ namespace MeadowRPSLS
             display.Clear();
         }
 
-        public void UpdateDisplay(RPSLS game)
+        public void UpdateDisplay(RPSLSGame game)
         {
-            Console.WriteLine("Update display");
-
-            Console.WriteLine("Draw bitamps");
-
             DrawBitmap(7, 105, GetImageDataForHand(game.Player1));
 
             DrawBitmap(123, 105, GetImageDataForHand(game.Player2));
@@ -61,33 +57,33 @@ namespace MeadowRPSLS
             imgSpock = LoadBitmapAsResource("Spock6.bmp");
         }
 
-        private byte[] GetImageDataForHand(RPSLS.Hand hand)
+        private byte[] GetImageDataForHand(RPSLSGame.Hand hand)
         {
             switch (hand)
             {
-                case RPSLS.Hand.Lizard:
+                case RPSLSGame.Hand.Lizard:
                     return imgLizard;
-                case RPSLS.Hand.Paper:
+                case RPSLSGame.Hand.Paper:
                     return imgPaper;
-                case RPSLS.Hand.Rock:
+                case RPSLSGame.Hand.Rock:
                     return imgRock;
-                case RPSLS.Hand.Scissors:
+                case RPSLSGame.Hand.Scissors:
                     return imgScissors;
-                case RPSLS.Hand.Spock:
+                case RPSLSGame.Hand.Spock:
                 default:
                     return imgSpock;
             }
         }
 
-        private string GetResultText(RPSLS.Result result)
+        private string GetResultText(RPSLSGame.Result result)
         {
             switch (result)
             {
-                case RPSLS.Result.Player1Wins:
+                case RPSLSGame.Result.Player1Wins:
                     return "Player 1 wins!";
-                case RPSLS.Result.Player2Wins:
+                case RPSLSGame.Result.Player2Wins:
                     return "Player 2 wins!";
-                case RPSLS.Result.Tie:
+                case RPSLSGame.Result.Tie:
                     return "Tie game";
                 default:
                     return string.Empty;
@@ -96,22 +92,15 @@ namespace MeadowRPSLS
 
         void DrawBitmap(int x, int y, byte[] data)
         {
-            byte r, g, b;
-
             int offset = 14 + data[14];
-
-            Console.WriteLine($"Offset {offset}");
-
             int width = data[18];
-            Console.WriteLine($"Width {width}");
-
             int height = data[22];
-            Console.WriteLine($"Height {height}");
 
             int bpp = data[28];
-            Console.WriteLine($"BPP {bpp}");
+            Console.WriteLine($"Width:{width} Height:{height} BPP{bpp}");
 
             int padding = (width * 3) % 4;
+            byte r, g, b;
 
             for (int j = 0; j < height; j++)
             {
@@ -126,7 +115,7 @@ namespace MeadowRPSLS
             }
         }
 
-        byte[] LoadBitmapAsResource(string image = "Lizard6.bmp")
+        byte[] LoadBitmapAsResource(string image)
         {
             var assembly = Assembly.GetExecutingAssembly();
             var resourceName = $"MeadowRPSLS.Images.{image}";
