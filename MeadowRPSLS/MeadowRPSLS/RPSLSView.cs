@@ -1,6 +1,7 @@
 ﻿using System;
 using System.IO;
 using System.Reflection;
+using Meadow.Foundation;
 using Meadow.Foundation.Displays.Tft;
 using Meadow.Foundation.Graphics;
 
@@ -18,7 +19,6 @@ namespace MeadowRPSLS
         byte[] imgLizard;
         byte[] imgSpock;
 
-
         public RPSLSView(DisplayTftSpiBase controller)
         {
             this.controller = controller;
@@ -28,7 +28,6 @@ namespace MeadowRPSLS
             Console.WriteLine("Init graphics lib");
             display = new GraphicsLibrary(controller);
             display.CurrentFont = new Font8x12();
-            display.CurrentRotation = GraphicsLibrary.Rotation._180Degrees;
             display.Clear();
         }
 
@@ -38,8 +37,11 @@ namespace MeadowRPSLS
 
             DrawBitmap(123, 105, GetImageDataForHand(game.Player2));
 
-            display.DrawRectangle(0, 0, 160, 20, Meadow.Foundation.Color.Black, true);
-            display.DrawText(2, 2, GetResultText(game.GetResult()), Meadow.Foundation.Color.Red);
+            display.DrawRectangle(0, 0, 160, 20, Color.Black, true);
+
+            display.DrawText(2, 2,
+                GetResultText(game.GetResult()),
+                GetResultColor(game.GetResult()));
 
             Console.WriteLine("Show");
 
@@ -72,6 +74,19 @@ namespace MeadowRPSLS
                 case RPSLSGame.Hand.Spock:
                 default:
                     return imgSpock;
+            }
+        }
+
+        private Color GetResultColor(RPSLSGame.Result result)
+        {
+            switch(result)
+            {
+                case RPSLSGame.Result.Player1Wins:
+                    return Color.LightGreen;
+                case RPSLSGame.Result.Player2Wins:
+                    return Color.Red;
+                default:
+                    return Color.Yellow;
             }
         }
 
