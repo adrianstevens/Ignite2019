@@ -39,7 +39,7 @@ namespace MeadowRPSLS
             display.Clear();
 
             display.DrawText(80, 10, "R.P.S.L.S.", DarkBlue);
-            display.DrawText(48, 298, "aka.ms/Ignite2019", DarkBlue);
+            display.DrawText(76, 298, "aka.ms/rpsls", DarkBlue);
         }
 
         public void UpdateDisplay(RPSLSGame game)
