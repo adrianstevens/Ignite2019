@@ -38,8 +38,8 @@ namespace MeadowRPSLS
             //Draw static content
             display.Clear();
 
-            display.DrawText(80, 10, "R.P.S.L.S.", DarkBlue);
-            display.DrawText(76, 298, "aka.ms/rpsls", DarkBlue);
+            display.DrawText(80, 10, "R.P.S.L.S.", White);
+            display.DrawText(76, 298, "aka.ms/rpsls", White);
         }
 
         public void UpdateDisplay(RPSLSGame game)
