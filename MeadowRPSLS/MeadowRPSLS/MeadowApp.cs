@@ -37,10 +37,6 @@ namespace MeadowRPSLS
             {
                 game.Play();
 
-                Console.WriteLine($"GC total mem: {GC.GetTotalMemory(false)}");
-
-                Thread.Sleep(50);
-
                 UpdateDisplay();
             }
         }
@@ -50,9 +46,8 @@ namespace MeadowRPSLS
         {
             Console.WriteLine("Initialize hardware");
 
-            var spiBus = Device.CreateSpiBus(3000);
-
-            Console.WriteLine($"Speed: {spiBus.Configuration.SpeedKHz}kHz");
+            var spiBus = Device.CreateSpiBus(48000);
+            Console.WriteLine($"SPI speed: {spiBus.Configuration.SpeedKHz}kHz");
 
             controller = new ILI9341(device: Device, spiBus: spiBus,
                 chipSelectPin: Device.Pins.D13,

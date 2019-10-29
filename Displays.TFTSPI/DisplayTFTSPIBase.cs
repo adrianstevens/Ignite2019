@@ -1,6 +1,5 @@
 using Meadow.Hardware;
 using System;
-using System.Drawing;
 using System.Threading;
 
 namespace Meadow.Foundation.Displays.Tft
@@ -69,6 +68,8 @@ namespace Meadow.Foundation.Displays.Tft
             spiDisplay = new SpiPeripheral(spiBus, chipSelectPort);
         }
 
+        protected abstract void SetAddressWindow(uint x1, uint x2, uint y1, uint y2);
+
         /// <summary>
         ///     Clear the display.
         /// </summary>
@@ -88,7 +89,9 @@ namespace Meadow.Foundation.Displays.Tft
             ClearScreen(color);
 
             if (updateDisplay)
+            {
                 Refresh();
+            }
         }
 
         /// <summary>
@@ -153,7 +156,9 @@ namespace Meadow.Foundation.Displays.Tft
                     for (var pixel = 0; pixel < 8; pixel++)
                     {
                         if ((b & mask) > 0)
+                        {
                             DrawPixel(x + (8 * abscissa) + pixel, y + ordinate, color);
+                        }
                         mask <<= 1;
                     }
                 }
@@ -169,6 +174,11 @@ namespace Meadow.Foundation.Displays.Tft
         public override void DrawPixel(int x, int y, bool colored)
         {
             SetPixel(x, y, (colored ? (ushort)(0xFFFF) : (ushort)0));
+        }
+
+        public void DrawPixel(int x, int y, ushort color)
+        {
+            SetPixel(x, y, color);
         }
 
         /// <summary>
@@ -217,9 +227,19 @@ namespace Meadow.Foundation.Displays.Tft
         /// </summary>
         public void Refresh()
         {
-           // spiDisplay.WriteBytes(spiBuffer);
+            // spiDisplay.WriteBytes(spiBuffer);
 
-            spi.ExchangeData(chipSelectPort, ChipSelectMode.ActiveLow, spiReceive, spiBuffer);
+          /*  if (xMax == 0 || yMax == 0)
+                return;
+
+            SetAddressWindow(0, 0, Width - 1, yMax);
+
+            uint len = yMax * Width;
+
+            Console.WriteLine($"Width: {Width} Height: {Height}");
+            Console.WriteLine($"SPI Len = {len}"); */
+       
+            spi.ExchangeData(chipSelectPort, ChipSelectMode.ActiveLow, spiBuffer, spiReceive);
         }
 
         private ushort Get16BitColorFromRGB(byte red, byte green, byte blue)
@@ -228,15 +248,7 @@ namespace Meadow.Foundation.Displays.Tft
             green >>= 2;
             blue >>= 3;
 
-            red &= 0x1F;
-            ushort value = red;
-            value <<= 6;
-            green &= 0x3F;
-            value |= green;
-            value <<= 5;
-            blue &= 0x1F;
-            value |= blue;
-            return value;
+            return (ushort)(red << 11 | green << 5 | blue);
         }
 
         private ushort Get16BitColorFromColor(Color color)
@@ -292,6 +304,7 @@ namespace Meadow.Foundation.Displays.Tft
             spiDisplay.WriteBytes(data);
         }
 
+
         /// <summary>
         ///     Directly sets the display to a 16bpp color value
         /// </summary>
@@ -326,7 +339,6 @@ namespace Meadow.Foundation.Displays.Tft
             Array.Copy(spiBuffer, 0, spiBuffer, 256, 256);
 
             index = 512;
-            var Half = _height / 2;
 
             while(index < spiBuffer.Length - 256)
             {

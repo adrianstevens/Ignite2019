@@ -14,13 +14,43 @@
     <None Remove="Images\Rock6.bmp" />
     <None Remove="Images\Paper6.bmp" />
     <None Remove="Images\trees.bmp" />
+    <None Remove="Images\Spock16.bmp" />
+    <None Remove="Images\Paper16.bmp" />
+    <None Remove="Images\Lizard16.bmp" />
+    <None Remove="Images\Scissors16.bmp" />
+    <None Remove="Images\Rock16.bmp" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Images\Lizard6.bmp" />
-    <EmbeddedResource Include="Images\Spock6.bmp" />
-    <EmbeddedResource Include="Images\Scissors6.bmp" />
-    <EmbeddedResource Include="Images\Rock6.bmp" />
-    <EmbeddedResource Include="Images\Paper6.bmp" />
+    <EmbeddedResource Include="Images\Lizard6.bmp">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Images\Spock6.bmp">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Images\Scissors6.bmp">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Images\Rock6.bmp">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Images\Paper6.bmp">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Images\Spock16.bmp">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Images\Paper16.bmp">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Images\Lizard16.bmp">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Images\Scissors16.bmp">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Images\Rock16.bmp">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="WildernessLabs.Meadow.Assemblies" Version="0.1.1" />
@@ -28,5 +58,22 @@
   <ItemGroup>
     <ProjectReference Include="..\..\Displays.TFTSPI\Displays.TFTSPI.csproj" />
     <ProjectReference Include="..\..\Displays.GraphicsLibrary\Displays.GraphicsLibrary.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Update="Images\Spock16.bmp">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Images\Paper16.bmp">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Images\Lizard16.bmp">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Images\Scissors16.bmp">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Images\Rock16.bmp">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 </Project>

@@ -42,8 +42,6 @@ namespace MeadowRPSLS
 
         public void Play()
         {
-            Reset();
-
             Player1 = (Hand)(rand.Next() % 5);
             Player2 = (Hand)(rand.Next() % 5);
 
