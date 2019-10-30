@@ -38,8 +38,8 @@ namespace MeadowRPSLS
             //Draw static content
             display.Clear();
 
-            display.DrawText(80, 10, "R.P.S.L.S.", DarkBlue);
-            display.DrawText(48, 298, "aka.ms/Ignite2019", DarkBlue);
+            display.DrawText(80, 10, "R.P.S.L.S.", White);
+            display.DrawText(76, 298, "aka.ms/rpsls", White);
         }
 
         public void UpdateDisplay(RPSLSGame game)
@@ -52,13 +52,6 @@ namespace MeadowRPSLS
 
             DrawBitmap(132, 80, GetImageDataForHand(game.Player2));
 
-            //clear buffer showing results with black
-            display.DrawRectangle(40, 220, 160, 12, Color.Black, true);
-
-            display.DrawText(120 - msg.Length * 4, 220,
-                GetResultText(game.GetResult()),
-                GetResultColor(game.GetResult()));
-
             //clear buffer showing hands with black
             display.DrawRectangle(0, 185, 240, 12, Color.Black, true);
 
@@ -68,11 +61,33 @@ namespace MeadowRPSLS
             hand = game.Player2.ToString();
             display.DrawText(180 - hand.Length * 4, 185, hand, Orange);
 
-            Console.WriteLine("Show");
+            //clear buffer showing results with black
+            display.DrawRectangle(40, 220, 160, 12, Color.Black, true);
+
+            if(game.GetResult() == RPSLSGame.Result.Player1Wins)
+            {
+                display.DrawText(100 - game.Player1.ToString().Length * 4, 220,
+                    game.Player1.ToString(), Blue);
+                display.DrawText(108 + game.Player1.ToString().Length * 4, 220,
+                    "wins!", White);
+            }
+            else if(game.GetResult() == RPSLSGame.Result.Player2Wins)
+            {
+                display.DrawText(100 - game.Player2.ToString().Length * 4, 220,
+                                    game.Player2.ToString(), Orange);
+                display.DrawText(108 + game.Player2.ToString().Length * 4, 220,
+                    "wins!", White);
+            }
+            else
+            {
+                display.DrawText(88, 220, "Tie game", White);
+            }
+
+            Console.WriteLine("Update display");
 
             display.Show();
 
-            Console.WriteLine("Show complete");
+            Console.WriteLine("Update complete");
         }
 
         void LoadImages()
