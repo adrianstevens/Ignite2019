@@ -16,9 +16,8 @@ namespace MeadowRPSLS
         static Color Orange = new Color(1, 170/255.0, 69/255.0);
         static Color Blue = new Color(18/255.0, 133/255.0, 162/255.0);
         static Color White = Color.White;
-        static Color DarkBlue = new Color(28 / 255.0, 56 / 255.0, 105 / 255.0);
 
-        //bitmap image data
+        //bitmap image data encoded as RGB 565
         byte[] imgRock;
         byte[] imgPaper;
         byte[] imgScissors;
@@ -33,54 +32,64 @@ namespace MeadowRPSLS
 
             Console.WriteLine("Init graphics lib");
             display = new GraphicsLibrary(controller);
-            display.CurrentFont = new Font8x12();
+            display.CurrentFont = new Font12x16();
 
             //Draw static content
-            display.Clear();
+            display.Clear(); //black background
 
-            display.DrawText(80, 10, "R.P.S.L.S.", White);
-            display.DrawText(76, 298, "aka.ms/rpsls", White);
+            display.DrawText(60, 10, "R.P.S.L.S.", White);
+            display.DrawText(54, 290, "aka.ms/rpsls", White);
+        }
+
+        public void CountDown()
+        {
+            int y = 30;
+            for(int i = 3; i > 0; i--)
+            {
+                display.DrawRectangle(114, y, 12, 16, Color.Black, true);
+                display.DrawText(114, y, $"{i}", Orange);
+                display.Show();
+            }
+            display.DrawRectangle(114, y, 12, 16, Color.Black, true);
         }
 
         public void UpdateDisplay(RPSLSGame game)
         {
-            var result = game.GetResult();
-            var msg = GetResultText(result);
-            var clr = GetResultColor(result);
-
             DrawBitmap(12, 80, GetImageDataForHand(game.Player1));
 
             DrawBitmap(132, 80, GetImageDataForHand(game.Player2));
 
             //clear buffer showing hands with black
-            display.DrawRectangle(0, 185, 240, 12, Color.Black, true);
+            display.DrawRectangle(0, 185, 240, 16, Color.Black, true);
 
             var hand = game.Player1.ToString();
-            display.DrawText(60 - hand.Length * 4, 185, hand, Blue);
+            display.DrawText(60 - hand.Length * 6, 185, hand, Blue);
 
             hand = game.Player2.ToString();
-            display.DrawText(180 - hand.Length * 4, 185, hand, Orange);
+            display.DrawText(180 - hand.Length * 6, 185, hand, Orange);
 
             //clear buffer showing results with black
-            display.DrawRectangle(40, 220, 160, 12, Color.Black, true);
+            display.DrawRectangle(0, 220, 240, 16, Color.Black, true);
 
             if(game.GetResult() == RPSLSGame.Result.Player1Wins)
             {
-                display.DrawText(100 - game.Player1.ToString().Length * 4, 220,
+                int start = 120 - (game.Player1.ToString().Length + 5) * 6;
+                display.DrawText(start, 220,
                     game.Player1.ToString(), Blue);
-                display.DrawText(108 + game.Player1.ToString().Length * 4, 220,
-                    "wins!", White);
+                display.DrawText(start + game.Player1.ToString().Length * 12, 220,
+                    " wins!", White);
             }
             else if(game.GetResult() == RPSLSGame.Result.Player2Wins)
             {
-                display.DrawText(100 - game.Player2.ToString().Length * 4, 220,
+                int start = 120 - (game.Player2.ToString().Length + 5) * 6;
+                display.DrawText(start, 220,
                                     game.Player2.ToString(), Orange);
-                display.DrawText(108 + game.Player2.ToString().Length * 4, 220,
-                    "wins!", White);
+                display.DrawText(start + game.Player2.ToString().Length * 12, 220,
+                    " wins!", White);
             }
             else
             {
-                display.DrawText(88, 220, "Tie game", White);
+                display.DrawText(72, 220, "Tie game", White);
             }
 
             Console.WriteLine("Update display");
@@ -92,11 +101,11 @@ namespace MeadowRPSLS
 
         void LoadImages()
         {
-            imgRock = LoadBitmapAsResource("Rock16.bmp");
-            imgPaper = LoadBitmapAsResource("Paper16.bmp");
-            imgScissors = LoadBitmapAsResource("Scissors16.bmp");
-            imgLizard = LoadBitmapAsResource("Lizard16.bmp");
-            imgSpock = LoadBitmapAsResource("Spock16.bmp");
+            imgRock = LoadBitmapFromResource("Rock16.bmp");
+            imgPaper = LoadBitmapFromResource("Paper16.bmp");
+            imgScissors = LoadBitmapFromResource("Scissors16.bmp");
+            imgLizard = LoadBitmapFromResource("Lizard16.bmp");
+            imgSpock = LoadBitmapFromResource("Spock16.bmp"); 
         }
 
         private byte[] GetImageDataForHand(RPSLSGame.Hand hand)
@@ -114,34 +123,6 @@ namespace MeadowRPSLS
                 case RPSLSGame.Hand.Spock:
                 default:
                     return imgSpock;
-            }
-        }
-
-        private Color GetResultColor(RPSLSGame.Result result)
-        {
-            switch(result)
-            {
-                case RPSLSGame.Result.Player1Wins:
-                    return Blue;
-                case RPSLSGame.Result.Player2Wins:
-                    return Orange;
-                default:
-                    return White;
-            }
-        }
-
-        private string GetResultText(RPSLSGame.Result result)
-        {
-            switch (result)
-            {
-                case RPSLSGame.Result.Player1Wins:
-                    return "Player 1 wins!";
-                case RPSLSGame.Result.Player2Wins:
-                    return "Player 2 wins!";
-                case RPSLSGame.Result.Tie:
-                    return "Tie game";
-                default:
-                    return string.Empty;
             }
         }
 
@@ -168,6 +149,7 @@ namespace MeadowRPSLS
             }
         }
 
+        //legacy, will remove 
         void Draw24BppBitmap(int x, int y, int offset, int width, int height, byte[] data)
         { 
             int padding = (width * 3) % 4;
@@ -186,8 +168,7 @@ namespace MeadowRPSLS
             }
         }
 
-        //555 ... ignore least sig bit
-        //we adjust green to 6 bits to match display
+        //legacy, will remove 
         void Draw16BppBitmap(int x, int y, int offset, int width, int height, byte[] data)
         {
             int padding = (width * 2) % 4;
@@ -200,7 +181,7 @@ namespace MeadowRPSLS
                 {
                     low = data[i * 2 + j * (width * 2 + padding) + offset];
                     high = data[i * 2 + j * (width * 2 + padding) + offset + 1];
-
+                    
                     //get r, g, b values assuming 8 bits per channel (least sig bits will be 0)
                     r = (byte)((high << 1) & 0xF8);
                     g = (byte)((high << 6) + ((low >> 2) & 0x38));
@@ -211,7 +192,7 @@ namespace MeadowRPSLS
             }
         }
 
-        byte[] LoadBitmapAsResource(string image)
+        byte[] LoadBitmapFromResource(string image)
         {
             var assembly = Assembly.GetExecutingAssembly();
             var resourceName = $"MeadowRPSLS.Images.{image}";

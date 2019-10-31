@@ -1,57 +1,11 @@
-﻿
-namespace Meadow.Foundation.Graphics
+﻿using System;
+
+namespace MeadowRPSLS.Graphics
 {
-    //mono source code https://github.com/mono/mono/blob/master/mcs/class/System.Drawing/System.Drawing/Bitmap.cs
-    public class Bitmap
+    public class BitmapConverters
     {
-        public enum PixelFormat
+        public BitmapConverters()
         {
-            Alpha = 0x40000,
-            Canonical = 0x200000,
-            DontCare = 0,
-            Extended = 0x100000,
-            Format16bppArgb1555 = 397319,
-            Format16bppGrayScale = 1052676,
-            Format16bppRgb555 = 135173,
-            Format16bppRgb565 = 135174,
-            Format1bppIndexed = 196865,
-            Format24bppRgb = 137224,
-            Format32bppArgb = 2498570,
-            Format32bppPArgb = 925707,
-            Format32bppRgb = 139273,
-            Format48bppRgb = 1060876,
-            Format4bppIndexed = 197634,
-            Format64bppArgb = 3424269,
-            Format64bppPArgb = 1851406,
-            Format8bppIndexed = 198659,
-            Gdi = 0x20000,
-            Indexed = 0x10000,
-            Max = 0xF,
-            PAlpha = 0x80000,
-            Undefined = 0
-        }
-
-        public int Height => 0;
-        public int Width => 0;
-
-        public Bitmap(string filename)
-        {
-            
-        }
-
-        public Bitmap(System.IO.Stream stream)
-        {
-
-        }
-
-        Color GetPixel(int x, int y)
-        {
-            return Color.Red;
-        }
-
-        void SetPixel(int x, int y, Color color)
-        {
-
         }
 
         public static byte[] Get8bppGreyScale(byte[] bitmap24bbp)
@@ -120,6 +74,48 @@ namespace Meadow.Foundation.Graphics
             if (data > 127)
                 return 255;
             return 0;
+        }
+
+        ushort[] Get565From16bppBitmap(byte[] data)
+        {
+            int offset = 14 + data[14];
+            int width = data[18];
+            int height = data[22];
+
+            var data565 = new ushort[width * height];
+
+            int padding = (width * 2) % 4;
+
+            ushort pixel;
+
+            for (int j = 0; j < height; j++)
+            {
+                for (int i = 0; i < width; i++)
+                {
+                    pixel = GetPixelFrom16bppBitmap(i, j, offset, width, padding, data);
+                    data565[j * width + i] = ConvertARGB555toRGB565(pixel);
+                }
+            }
+            return data565;
+        }
+
+        //convert from ARRRRRGG GGGBBBBB to RRRRRGGG GGGBBBBB
+        ushort ConvertARGB555toRGB565(ushort pixel)
+        {
+            var r = (pixel << 1) & 0xF800; //shift up and filter
+            var g = (pixel << 1) & 0x07C0; //shift up and filter
+            var b = pixel & 0x1F;
+
+            return (ushort)(r + g + b);
+        }
+
+        //A555 (ARRRRRGG GGGBBBBB)
+        ushort GetPixelFrom16bppBitmap(int x, int y, int offset, int width, int padding, byte[] data)
+        {
+            byte low = data[x * 2 + y * (width * 2 + padding) + offset];
+            byte high = data[x * 2 + y * (width * 2 + padding) + offset + 1];
+
+            return (ushort)((high << 8) + low);
         }
     }
 }

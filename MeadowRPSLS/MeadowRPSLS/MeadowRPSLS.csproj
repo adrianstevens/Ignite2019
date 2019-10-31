@@ -6,6 +6,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Folder Include="Images\" />
+    <Folder Include="Graphics\" />
   </ItemGroup>
   <ItemGroup>
     <None Remove="Images\Spock6.bmp" />
@@ -55,6 +56,6 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Meadow.Foundation" Version="0.10.7" />
+    <PackageReference Include="Meadow.Foundation" Version="0.10.8" />
   </ItemGroup>
 </Project>

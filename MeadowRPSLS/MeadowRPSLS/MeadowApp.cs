@@ -11,7 +11,7 @@ namespace MeadowRPSLS
     {
         IDigitalInputPort yellowButton;
 
-        DisplayTftSpiBase controller;
+        DisplayTftSpiBase display;
 
         RPSLSView view;
         RPSLSGame game;
@@ -22,7 +22,7 @@ namespace MeadowRPSLS
 
             Console.WriteLine("Create game object");
             game = new RPSLSGame();
-            view = new RPSLSView(controller);
+            view = new RPSLSView(display);
 
             Console.WriteLine("Play game");
 
@@ -49,7 +49,7 @@ namespace MeadowRPSLS
             var spiBus = Device.CreateSpiBus(48000);
             Console.WriteLine($"SPI speed: {spiBus.Configuration.SpeedKHz}kHz");
 
-            controller = new ILI9341(device: Device, spiBus: spiBus,
+            display = new ILI9341(device: Device, spiBus: spiBus,
                 chipSelectPin: Device.Pins.D13,
                 dcPin: Device.Pins.D14,
                 resetPin: Device.Pins.D15,
@@ -67,6 +67,7 @@ namespace MeadowRPSLS
 
         private void UpdateDisplay ()
         {
+            view.CountDown();
             view.UpdateDisplay(game);
         }
     }
