@@ -12,7 +12,6 @@ namespace MeadowRPSLS
         DisplayTftSpiBase controller;
         GraphicsLibrary display;
 
-        static Color Yellow = new Color(249 / 255.0, 194 / 255.0, 85 / 255.0);
         static Color Orange = new Color(1, 170/255.0, 69/255.0);
         static Color Blue = new Color(18/255.0, 133/255.0, 162/255.0);
         static Color White = Color.White;
@@ -38,7 +37,7 @@ namespace MeadowRPSLS
             display.Clear(); //black background
 
             display.DrawText(60, 10, "R.P.S.L.S.", White);
-            display.DrawText(54, 290, "aka.ms/rpsls", White);
+            display.DrawText(48, 290, "aka.ms/rpsls", White);
         }
 
         public void CountDown()
@@ -73,7 +72,7 @@ namespace MeadowRPSLS
 
             if(game.GetResult() == RPSLSGame.Result.Player1Wins)
             {
-                int start = 120 - (game.Player1.ToString().Length + 5) * 6;
+                int start = 120 - (game.Player1.ToString().Length + 6) * 6;
                 display.DrawText(start, 220,
                     game.Player1.ToString(), Blue);
                 display.DrawText(start + game.Player1.ToString().Length * 12, 220,
@@ -81,7 +80,7 @@ namespace MeadowRPSLS
             }
             else if(game.GetResult() == RPSLSGame.Result.Player2Wins)
             {
-                int start = 120 - (game.Player2.ToString().Length + 5) * 6;
+                int start = 120 - (game.Player2.ToString().Length + 6) * 6;
                 display.DrawText(start, 220,
                                     game.Player2.ToString(), Orange);
                 display.DrawText(start + game.Player2.ToString().Length * 12, 220,
@@ -149,7 +148,6 @@ namespace MeadowRPSLS
             }
         }
 
-        //legacy, will remove 
         void Draw24BppBitmap(int x, int y, int offset, int width, int height, byte[] data)
         { 
             int padding = (width * 3) % 4;
@@ -168,7 +166,6 @@ namespace MeadowRPSLS
             }
         }
 
-        //legacy, will remove 
         void Draw16BppBitmap(int x, int y, int offset, int width, int height, byte[] data)
         {
             int padding = (width * 2) % 4;

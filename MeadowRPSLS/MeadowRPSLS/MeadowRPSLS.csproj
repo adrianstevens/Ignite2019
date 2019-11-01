@@ -6,7 +6,6 @@
   </PropertyGroup>
   <ItemGroup>
     <Folder Include="Images\" />
-    <Folder Include="Graphics\" />
   </ItemGroup>
   <ItemGroup>
     <None Remove="Images\Spock6.bmp" />
