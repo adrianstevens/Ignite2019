@@ -1,6 +1,7 @@
 ﻿using System;
 using System.IO;
 using System.Reflection;
+using System.Threading;
 using Meadow.Foundation;
 using Meadow.Foundation.Displays.Tft;
 using Meadow.Foundation.Graphics;
@@ -48,6 +49,7 @@ namespace MeadowRPSLS
                 display.DrawRectangle(114, y, 12, 16, Color.Black, true);
                 display.DrawText(114, y, $"{i}", Orange);
                 display.Show();
+                Thread.Sleep(500);
             }
             display.DrawRectangle(114, y, 12, 16, Color.Black, true);
         }
@@ -91,11 +93,9 @@ namespace MeadowRPSLS
                 display.DrawText(72, 220, "Tie game", White);
             }
 
-            Console.WriteLine("Update display");
-
             display.Show();
 
-            Console.WriteLine("Update complete");
+            Thread.Sleep(1000);
         }
 
         void LoadImages()

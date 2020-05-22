@@ -49,7 +49,7 @@ namespace MeadowRPSLS
             var spiBus = Device.CreateSpiBus(48000);
             Console.WriteLine($"SPI speed: {spiBus.Configuration.SpeedKHz}kHz");
 
-            display = new ILI9341(device: Device, spiBus: spiBus,
+            display = new Ili9341(device: Device, spiBus: spiBus,
                 chipSelectPin: Device.Pins.D13,
                 dcPin: Device.Pins.D14,
                 resetPin: Device.Pins.D15,

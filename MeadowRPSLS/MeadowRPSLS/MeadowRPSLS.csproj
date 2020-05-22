@@ -34,10 +34,6 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\Displays.TFTSPI\Displays.TFTSPI.csproj" />
-    <ProjectReference Include="..\..\Displays.GraphicsLibrary\Displays.GraphicsLibrary.csproj" />
-  </ItemGroup>
-  <ItemGroup>
     <None Update="Images\Spock16.bmp">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
@@ -55,6 +51,8 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Meadow.Foundation" Version="0.10.8" />
+    <PackageReference Include="Meadow.Foundation" Version="0.14.1" />
+    <PackageReference Include="Meadow.Foundation.Displays.TftSpi" Version="0.7.6" />
+    <PackageReference Include="SimpleJpegDecoder" Version="0.1.1" />
   </ItemGroup>
 </Project>
